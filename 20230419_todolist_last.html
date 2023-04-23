@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=\, initial-scale=1.0">
+        <title>To Do List</title>
+        <style>
+            html, body {
+                margin: 0 auto;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+            
+            .container {
+                width: 50%;
+                margin: 0 auto;
+                text-align: center;
+            }
+            h1 {
+                text-align: center;
+                font-size: 3rem;
+                margin-bottom: 2rem;
+                color: #515b6e;
+            }
+            #inputFiled {
+                width: 300px;
+                height: 46px;
+                border: 2px solid #bfc9d4;
+                outline: none;
+                /*보더의 아웃라인 없앰*/
+                font-size: 25px;
+                vertical-align: middle;
+                /*수직 중앙 정렬*/
+                text-align: left;
+            }
+            #addToDo:hover {
+                background-color: #bfc9d4;
+            }
+            .to-dos {
+                margin-top:25px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>To Do List</h1>
+        <div class="container">
+            <!--text 입력창(할일 입력창) 만들기-->
+            <input id="inputField" type="text">
+            <!-- + 버튼 만들기 -->
+            <button id="addToDo"> + </button>
+            <!-- id = inputField에 할일이 입력되고 + 버튼이 눌리면 할일이 나타날 공간 만들기-->    
+            <div class="to-dos" id="toDoList"> </div>  
+        </div>
+
+        <script>
+            let inputBox = document.getElementById('inputField');  
+            // 할 일 입력창 id 출력
+            let addToDo = document.getElementById('addToDo');      
+            // 버튼 만들어지는 id 출력
+            let toDoList = document.getElementById('toDoList');    
+            // 할 일 리스트창 만들어지는 id 출력
+
+            addToDo.addEventListener('click', function(){    
+                // 버튼에 클릭 이벤트가 발생하면 함수를 실행한다
+                var list = document.createElement('li'); 
+                // 지정한 태그명의 html 요소 생성
+                    if (!inputBox.value)            
+                    /* ! 기호 = 논리 부정 연산자로 거짓인 경우 참으로 실행
+                    inputBox에 값이 입력되면 넘어가고
+                    할 일 입력창에 내용이 입력되지 않으면 alert 발생*/
+                        alert('내용을 입력해 주세요!');
+                    else
+                    {
+                        list.innerText = inputBox.value;  
+                        /*list.innerText => list(element)안의 text 값들만을 가져온다
+                        <li>입력된 할 일</li> */
+                        toDoList.append(list);
+                        // toDoList.appendChild(list);
+                        // 할 일 리스트창(부모 요소) 끝에 자식 요소으로 붙이기
+                        inputBox.value= "";               
+                        // 할 일 입력창 초기화
+                    }
+
+                list.addEventListener('click', function(){      
+                    // 만들어진 list에 클릭 이벤트가 발생하면 줄 긋기
+                    list.style.textDecoration = "line-through";
+                })
+                list.addEventListener('dblclick', function(){   
+                    // list에 더블클릭 이벤트가 발생하면 할 일 리스트창에서 지우기
+                    toDoList.removeChild(list);
+                })
+                })
+        </script>
+    </body>
+</html>
